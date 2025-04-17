@@ -18,11 +18,9 @@ DB_CONFIG = {
     "port": 5432
 }
 
-# Function to get DB connection
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
 
-# Create users table if not exists
 def create_table():
     conn = get_db_connection()
     cur = conn.cursor()
@@ -51,10 +49,8 @@ def create_table():
     cur.close()
     conn.close()
 
-# Ensure table exists before running the app
 create_table()
 
-# Initialize bcrypt
 bcrypt = Bcrypt(app)
 
 # API Route for User Newsletter
@@ -63,8 +59,8 @@ def subscribe():
     data = request.json
     full_name = data.get("full_name")
     email = data.get("email")
-    subject = data.get("subject", "General")  # Default: General
-    message = data.get("message", "")  # Default: Empty
+    subject = data.get("subject", "General") 
+    message = data.get("message", "") 
     subscribed = data.get("subscribed", True)
 
     if not full_name or not email:
@@ -74,7 +70,6 @@ def subscribe():
     cur = conn.cursor()
 
     try:
-        # Insert subscriber data into newsletter table
         cur.execute("""
             INSERT INTO newsletter (full_name, email, subject, message, subscribed) 
             VALUES (%s, %s, %s, %s, %s)
@@ -145,7 +140,6 @@ def sign_in():
     cur = conn.cursor()
 
     try:
-        # Fetch user details along with hashed password
         cur.execute("SELECT first_name, last_name, phone_no, email, password FROM users WHERE email=%s", (email,))
         user = cur.fetchone()
 
