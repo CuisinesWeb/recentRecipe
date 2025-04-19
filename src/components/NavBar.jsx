@@ -14,11 +14,11 @@ const NavBar = () => {
         if (storedUser) {
             setUser(storedUser);
         }
-    }, []);
+    }, []); 
 
     useEffect(() => {
         const closeDropdown = (event) => {
-            if (isOpen && !event.target.closest(".user-container")) {
+            if (isOpen && !event.target.closest(".user-container")) { // checks if the click is inside the dropdown
                 setIsOpen(false);
             }
         };
@@ -48,10 +48,6 @@ const NavBar = () => {
 
     return (
         <div>
-            {/* <div className="header-overlay"></div> */}
-            {/* <div className="logo">
-                <img src={logo} alt="logo" />
-            </div> */}
             <nav className={getNavbarClass()}>
                 <div className="logo">
                     <img src={logo} alt="logo" />
@@ -59,7 +55,6 @@ const NavBar = () => {
                 <a href="/">Home</a>
                 <a href="/About">About</a>
                 <a href="/Contact">Contact</a>
-                {/* <a href="/Login">Login</a> */}
                 {user ? (
                     <>
                         <button onClick={handleLogout} className="logout-btn">Logout</button>

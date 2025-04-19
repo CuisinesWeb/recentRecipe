@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/Footer.css";
-const footer = () => {
 
+const footer = () => {
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -42,13 +42,12 @@ const footer = () => {
       <footer className="footer">
         {/* Quick Links Section */}
         <div className="footer-nav footer-section">
-          <h2>Quick Links</h2>
+          <h2 className="links">Quick Links</h2>
           <ul>
-            <li><a href="#"><i className="fas fa-home"></i> Home</a></li>
-            <li><a href="#"><i className="fas fa-utensils"></i> Recipes</a></li>
+            <li><a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} ><i className="fas fa-home"></i> Home</a></li>
+            <li><a href="#cuisine" ><i className="fas fa-utensils"></i> Recipes</a></li>
             <li><a href="#"><i className="fas fa-blog"></i> Blog</a></li>
             <li><a href="#"><i className="fas fa-info-circle"></i> About Us</a></li>
-            <li><a href="#"><i className="fas fa-envelope"></i> Contact</a></li>
           </ul>
         </div>
 

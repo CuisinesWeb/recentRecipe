@@ -31,7 +31,7 @@ const CuisineCards = () => {
                     <span className="blockB">real, actual, everyday life</span>
                 </h1>
             </div>
-            <section className="cuisine">
+            <section className="cuisine" id="cuisine" >
                 <div className="cards-container">
                     {cuisines.map((cuisine, index) => (
                         <div key={index} className="card" onClick={() => navigate(cuisine.path)}>

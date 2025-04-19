@@ -233,6 +233,15 @@
     cursor: pointer;
 }
 
+.response-message {
+    text-align: center; 
+    margin: 15px auto;    
+    padding: 10px;
+    max-width: 80%;     
+    /* border-radius: 4px; */
+    /* background-color: #f8f8f8;  */
+  }
+
 /* Social Icons */
 .footer-social {
     width: 100%;

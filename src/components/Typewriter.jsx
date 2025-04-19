@@ -16,26 +16,36 @@ const Typewriter = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const typingSpeed = isDeleting ? 50 : 100; // Faster when deleting
-    const timeout = setTimeout(() => {
-      if (!isDeleting && charIndex < texts[textIndex].length) {
-        setText((prev) => prev + texts[textIndex][charIndex]);
-        setCharIndex((prev) => prev + 1);
-      } else if (isDeleting && charIndex > 0) {
-        setText((prev) => prev.slice(0, -1));
-        setCharIndex((prev) => prev - 1);
-      } else {
-        setIsDeleting(!isDeleting);
-        if (!isDeleting) {
-          setTimeout(() => setIsDeleting(true), 1000); // Wait before deleting
-        } else {
-          setTextIndex((prev) => (prev + 1) % texts.length); // Move to next text
-          setCharIndex(0);
-        }
-      }
-    }, typingSpeed);
+    const currentText = texts[textIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
 
-    return () => clearTimeout(timeout); // Cleanup timeout
+    const handleTyping = () => {
+      if (!isDeleting) {
+        // Typing characters
+        const nextText = currentText.substring(0, charIndex + 1);
+        setText(nextText);
+
+        if (charIndex + 1 === currentText.length) {
+          setTimeout(() => setIsDeleting(true), 1000); // Pause before deleting
+        } else {
+          setCharIndex((prev) => prev + 1);
+        }
+      } else {
+        // Deleting characters
+        const nextText = currentText.substring(0, charIndex - 1);
+        setText(nextText);
+
+        if (charIndex - 1 === 0) {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);  // important step for looping through array
+        }
+
+        setCharIndex((prev) => prev - 1);
+      }
+    };
+
+    const timeout = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, textIndex]);
 
   return <h1 className="typewriter">{text}</h1>;
