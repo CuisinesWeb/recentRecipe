@@ -51,8 +51,7 @@ const SignIn = () => {
                         <button type="submit">Sign In</button>
                     </div>
                 </form>
-                {message && <p style={{ color: message.includes("failed") ? "red" : "green" }}>{message}</p>}
-                {/* {message && <p className="alert">{message}</p>} */}
+                {message && <p style={{ color: message.includes("Login successful") ? "green" : "red" }}>{message}</p>}
             </div>
         </div>
     );

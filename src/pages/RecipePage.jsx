@@ -9,32 +9,29 @@ const RecipePage = () => {
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [completedIngredients, setCompletedIngredients] = useState([]);
+    const [completedIngredients, setCompletedIngredients] = useState(new Set());
 
     useEffect(() => {
         window.scrollTo(0, 0);
         setLoading(true);
         setError(null);
 
-        const fetchRecipe = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:5000/recipe/${encodeURIComponent(recipeName)}`);
-                if (!response.ok) throw new Error("Recipe not found");
-                const data = await response.json();
-                setRecipe(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchRecipe();
+        fetch(`http://127.0.0.1:5000/recipe/${encodeURIComponent(recipeName)}`)
+            .then((res) => {
+                if (!res.ok) throw new Error("Recipe not found");
+                return res.json();
+            })
+            .then(setRecipe)
+            .catch((err) => setError(err.message))
+            .finally(() => setLoading(false));
     }, [recipeName]);
 
     const toggleIngredient = (index) => {
-        setCompletedIngredients((prev) =>
-            prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-        );
+        setCompletedIngredients((prev) => {
+            const updated = new Set(prev);
+            updated.has(index) ? updated.delete(index) : updated.add(index);
+            return updated;
+        });
     };
 
     if (loading) return <div className="loading">Loading recipe...</div>;
@@ -64,7 +61,7 @@ const RecipePage = () => {
                             {recipe.ingredients.split(',').map((ingredient, index) => (
                                 <li
                                     key={index}
-                                    className={`rp-ingredient-item ${completedIngredients.includes(index) ? 'completed' : ''}`}
+                                    className={`rp-ingredient-item ${completedIngredients.has(index) ? 'completed' : ''}`}
                                     onClick={() => toggleIngredient(index)}
                                 >
                                     {ingredient.trim()}
@@ -77,7 +74,9 @@ const RecipePage = () => {
                         <h2>Instructions</h2>
                         <ol className="rp-instructions-list">
                             {recipe.instructions.split(/(?<=\.)\s+/).map((instruction, index) => (
-                                <li key={index} className="rp-instruction-item">{instruction.trim()}</li>
+                                <li key={index} className="rp-instruction-item">
+                                    {instruction.trim()}
+                                </li>
                             ))}
                         </ol>
                     </div>

@@ -28,7 +28,7 @@ const login = () => {
 
       setTimeout(() => {
         navigate('/SignIn');
-      }, 2000);
+      }, 1000);
     } catch (error) {
       setMessage(error.response?.data?.error || "Signup failed");
     }

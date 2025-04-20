@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+.signup-container {
+    height: 100vh;
+    position: relative;
+    background: url('../assets/SignInAndSignUp.png') no-repeat center center;
+    background-size: cover;
+    /* font-family: 'Arvo', serif; */
+}
+
 /* Full-screen centered container */
 .signup-container {
     display: flex;
