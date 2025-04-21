@@ -11,6 +11,7 @@ import NorthEasternIndianPage from "./pages/NorthEasternIndianPage";
 import RecipePage from "./pages/RecipePage"; 
 import SearchResults from "./pages/SearchResults"; 
 import About from "./pages/AboutPage"; 
+import SearchHistory from "./pages/SearchHistory"; 
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/recipe/:recipeName" element={<RecipePage />} />
       <Route path="/search" element={<SearchResults />} />
       <Route path="/about" element={<About />} />
+      <Route path="/searchHistory" element={<SearchHistory />} />
     </Routes>
   );
 }
