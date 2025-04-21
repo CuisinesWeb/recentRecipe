@@ -14,7 +14,7 @@ const NavBar = () => {
         if (storedUser) {
             setUser(storedUser);
         }
-    }, []); 
+    }, []);
 
     useEffect(() => {
         const closeDropdown = (event) => {
@@ -52,6 +52,13 @@ const NavBar = () => {
                 <div className="logo">
                     <img src={logo} alt="logo" />
                 </div>
+                
+                <div className="cart-icon">
+                    <a href="https://youtu.be/fKyrmk1aF3o?si=dv08k2-nsuige1dx" target="_blank" rel="noopener noreferrer">
+                        <i className="fa-solid fa-cart-shopping"></i>
+                    </a>
+                </div>
+
                 <a href="/">Home</a>
                 <a href="/About">About</a>
                 <a href="#footer">Contact</a>

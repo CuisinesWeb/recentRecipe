@@ -34,6 +34,7 @@ def create_table():
             password TEXT NOT NULL
         )
     """)
+
     cur.execute(""" 
         CREATE TABLE IF NOT EXISTS newsletter (
             id SERIAL PRIMARY KEY,
@@ -45,6 +46,15 @@ def create_table():
         )
     """)
 
+    cur.execute(""" 
+        CREATE TABLE IF NOT EXISTS search_history (
+            id SERIAL PRIMARY KEY,
+            email VARCHAR(120) NOT NULL,
+            search_query TEXT NOT NULL,
+            search_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
     conn.commit()
     cur.close()
     conn.close()
@@ -52,6 +62,71 @@ def create_table():
 create_table()
 
 bcrypt = Bcrypt(app)
+
+@app.route("/save-search-history", methods=["POST"])
+def save_search_history():
+    data = request.json
+    email = data.get("email")
+    search_query = data.get("search_query")
+    
+    if not email or not search_query:
+        return jsonify({"error": "Email and search query are required"}), 400
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    try:
+        cur.execute(
+            "INSERT INTO search_history (email, search_query) VALUES (%s, %s) RETURNING id",
+            (email, search_query)
+        )
+        history_id = cur.fetchone()[0]
+        conn.commit()
+        
+        return jsonify({"message": "Search history saved", "id": history_id}), 201
+        
+    except psycopg2.Error as e:
+        conn.rollback()
+        return jsonify({"error": "Failed to save search history", "details": str(e)}), 500
+        
+    finally:
+        cur.close()
+        conn.close()
+
+@app.route("/user-search-history", methods=["GET"])
+def get_user_search_history():
+    email = request.args.get("email")
+    
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    try:
+        cur.execute("""
+            SELECT id, search_query, search_time FROM search_history 
+            WHERE email = %s
+            ORDER BY search_time DESC
+            LIMIT 20
+        """, (email,))
+        
+        history = cur.fetchall()
+        
+        history_list = [{
+            "id": h[0],
+            "query": h[1],
+            "timestamp": h[2].strftime("%Y-%m-%d %H:%M:%S") if h[2] else None
+        } for h in history]
+        
+        return jsonify(history_list), 200
+        
+    except psycopg2.Error as e:
+        return jsonify({"error": "Database error", "details": str(e)}), 500
+        
+    finally:
+        cur.close()
+        conn.close()
 
 # API Route for User Newsletter
 @app.route("/subscribe", methods=["POST"])

@@ -7,21 +7,6 @@ import profile2 from "../assets/profile2.jpg";
 import profile3 from "../assets/profile3.png";
 import profile4 from "../assets/profile4.png";
 import food from "../assets/preparing food.jpg";
-import innovation from "../assets/innovation.png";
-// import vision from "../assets/Vision.png";
-// import member1 from "../assets/Member 1.png";
-// import member2 from "../assets/Member 2.png";
-// import member3 from "../assets/Member 3.png";
-// import member4 from "../assets/Member 4.png";
-
-// import blog1 from "../assets/Blog 1.png";
-// import blog2 from "../assets/Blog 2.png";
-// import blog3 from "../assets/Blog 3.png";
-
-// import function1 from "../assets/Function 1.png";
-// import function2 from "../assets/Function 2.png";
-// import function3 from "../assets/Function 3.png";
-// import function4 from "../assets/Function 4.png";
 
 const AboutUs = () => {
     return (
