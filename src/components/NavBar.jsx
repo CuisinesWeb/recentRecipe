@@ -54,7 +54,7 @@ const NavBar = () => {
                 </div>
                 <a href="/">Home</a>
                 <a href="/About">About</a>
-                <a href="/Contact">Contact</a>
+                <a href="#footer">Contact</a>
                 {user ? (
                     <>
                         <button onClick={handleLogout} className="logout-btn">Logout</button>
@@ -71,10 +71,10 @@ const NavBar = () => {
                                     <p><strong>{user.first_name} {user.last_name}</strong></p>
                                     <p><strong>Phone No:</strong> {user.phone_no}</p>
                                     <p><strong>Email:</strong> {user.email}</p>
-                                    <hr />
-                                    <button onClick={() => navigate("/edit-profile")}>Edit Profile</button>
-                                    <button onClick={() => navigate("/search-history")}>Search History</button>
-                                    <button onClick={handleLogout}>Logout</button>
+                                    {/* <hr className="divider" /> */}
+                                    {/* <button onClick={() => navigate("/edit-profile")}>Edit Profile</button>
+                                    <button onClick={() => navigate("/search-history")}>Search History</button> */}
+                                    <button className="logout" onClick={handleLogout}>Logout</button>
                                 </div>
                             )}
                         </div>

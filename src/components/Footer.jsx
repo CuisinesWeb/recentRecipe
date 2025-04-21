@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Footer.css";
+import { Link } from 'react-router-dom';
 
 const footer = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,10 @@ const footer = () => {
     message: "",
     subscribed: false,
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -39,15 +44,37 @@ const footer = () => {
 
   return (
     <div>
-      <footer className="footer">
+      <footer className="footer" id="footer">
         {/* Quick Links Section */}
         <div className="footer-nav footer-section">
           <h2 className="links">Quick Links</h2>
-          <ul>
+          {/* <ul>
             <li><a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} ><i className="fas fa-home"></i> Home</a></li>
             <li><a href="#cuisine" ><i className="fas fa-utensils"></i> Recipes</a></li>
             <li><a href="#"><i className="fas fa-blog"></i> Blog</a></li>
             <li><a href="#"><i className="fas fa-info-circle"></i> About Us</a></li>
+          </ul> */}
+          <ul>
+            <li>
+              <Link to="/">
+                <i className="fas fa-home"></i> Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/">
+                <i className="fas fa-utensils"></i> Recipes
+              </Link>
+            </li>
+            <li>
+              <Link to="/blog">
+                <i className="fas fa-blog"></i> Blog
+              </Link>
+            </li>
+            <li>
+              <Link to="/about">
+                <i className="fas fa-info-circle"></i> About Us
+              </Link>
+            </li>
           </ul>
         </div>
 
