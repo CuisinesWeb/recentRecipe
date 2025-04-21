@@ -17,18 +17,18 @@ const AboutUs = () => {
 
                 {/* Mission Statement */}
                 <section className="mission-statement">
-                    <div className="container">
+                    <div className="about-container">
                         <div className="mission-content">
                             <div className="mission-text">
                                 <h2>Our Mission</h2>
                                 <p>We democratize cooking by providing accessible, foolproof recipes for every skill level. Our platform empowers home chefs to create restaurant-quality meals with confidence, transforming kitchen anxiety into culinary triumph.</p>
                                 <div className="mission-stats">
                                     <div className="stat-item">
-                                        <span className="stat-number">15K+</span>
+                                        <span className="stat-number">50+</span>
                                         <span className="stat-label">Recipes</span>
                                     </div>
                                     <div className="stat-item">
-                                        <span className="stat-number">8</span>
+                                        <span className="stat-number">6</span>
                                         <span className="stat-label">Cuisines</span>
                                     </div>
                                     <div className="stat-item">
@@ -46,7 +46,7 @@ const AboutUs = () => {
 
                 {/* Core Values */}
                 <section className="core-values">
-                    <div className="container">
+                    <div className="about-container">
                         <h2 className="section-title">Our Cooking Philosophy</h2>
                         <div className="values-grid">
 
@@ -71,7 +71,7 @@ const AboutUs = () => {
 
                 {/* Team Section */}
                 <section className="team-section">
-                    <div className="container">
+                    <div className="about-container">
                         <h2 className="section-title">Meet Our Culinary Team</h2>
                         <p className="section-subtitle">Passionate food experts creating your perfect cooking experience</p>
                         <div className="team-grid">
