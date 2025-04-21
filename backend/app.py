@@ -63,6 +63,32 @@ create_table()
 
 bcrypt = Bcrypt(app)
 
+# Add this to your Flask app
+
+@app.route("/clear-search-history", methods=["DELETE"])
+def clear_search_history():
+    email = request.args.get("email")
+    
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    try:
+        cur.execute("DELETE FROM search_history WHERE email = %s", (email,))
+        conn.commit()
+        
+        return jsonify({"message": "Search history cleared successfully"}), 200
+        
+    except psycopg2.Error as e:
+        conn.rollback()
+        return jsonify({"error": "Failed to clear search history", "details": str(e)}), 500
+        
+    finally:
+        cur.close()
+        conn.close()
+
 @app.route("/save-search-history", methods=["POST"])
 def save_search_history():
     data = request.json
